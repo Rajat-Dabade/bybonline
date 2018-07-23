@@ -1,0 +1,32 @@
+[
+    {
+        "page" : "Home",
+        "class" : "glyphicon glyphicon-home",
+        "goto" : "index.php"
+    },
+    {
+        "page" : "About Us",
+        "class" : "glyphicon glyphicon-exclamation-sign",
+        "goto" : "about.php"
+    },
+    {
+        "page" : "Special Offer",
+        "class" : "glyphicon glyphicon-text-size",
+        "goto" : "specialOffer.php"
+    },
+    {
+        "page" : "Login",
+        "class" : "glyphicon glyphicon-shopping-cart",
+        "goto" : "login.php"
+    },
+    {
+        "page" : "Register",
+        "class" : "glyphicon glyphicon-shopping-cart",
+        "goto" : "Register.php"
+    },
+    {
+        "page" : "Mail Us",
+        "class" : "glyphicon glyphicon-envelope",
+        "goto" : "mailUs.php"
+    }
+]
