@@ -12,7 +12,7 @@
     {
         "page" : "Special Offer",
         "class" : "glyphicon glyphicon-text-size",
-        "goto" : "specialOffer.php"
+        "goto" : "specialoffers.php"
     },
     {
         "page" : "Login",

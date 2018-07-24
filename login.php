@@ -28,9 +28,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<h3>Welcome, Please Sign In</h3>
 					<h4>New Customers</h4>
 					<p>
-					By creating an account at Bake Your Bread you will be able to sketch cake of your own design and able to submit, access each page of a site, keep track of the orders you have previously made and many more.</p>
-
-					<input type="submit" value="Register">
+					Login to your account at Bake Your Bread to access each page of a site, and keep track of the orders you have previously made and many more.</p>
 				</div>
 			</div>
 			<div class="main-agile" >
@@ -61,7 +59,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<span>Remember Me</span> 
 										<a href="#">Forgot Password</a>
 									</label> 
-										<input type="submit" value="Sign In">  
+										<input type="submit" value="Sign In"> 
+										<br> 
+									<center><label>Do not have an account? <a href="register.php">Click here</a></label></center>
 								</form> 
 						</div>
 					
