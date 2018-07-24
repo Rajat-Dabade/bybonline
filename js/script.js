@@ -2,7 +2,10 @@
 
 function login(){
     var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
+	var password = document.getElementById('password').value;
+	
+	console.log(email);
+	console.log(password);
 
     if(document.getElementById('login').value == "LOGIN"){
         document.getElementById('login').value = "LOGGING....";
@@ -11,16 +14,17 @@ function login(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            var flg = this.responseText;
+			var flg = this.responseText;
+			console.log(flg);
             if(flg == 0)
             {
                 document.getElementById('checkLogin').innerhtml = '<div class="alert alert-danger"><strong>Login Failed!</strong> Please enter valid credentials or verify your account if not.</div>';
                 if(document.getElementById('login').value == "LOGGING...."){
-                    document.getElementById('login').value = "LOGIN";
+                    document.getElementById('login').value = "LOGIN FAIL";
                 }
             }
             else{
-                window.location.href = 'index.php';
+                window.location.href = 'index.php?flg='+flg;
             }
         }
     };

@@ -22,7 +22,7 @@
     {
         "page" : "Register",
         "class" : "glyphicon glyphicon-shopping-cart",
-        "goto" : "Register.php"
+        "goto" : "register.php"
     },
     {
         "page" : "Mail Us",

@@ -122,16 +122,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								foreach($navdata as $navbar)
 								{
-									if($pagename == $navbar->goto)
+									if($navbar->goto == "login.php")
 									{
-										echo '<li class="active">
-										<a href='.$navbar->goto.'><i class="'.$navbar->class.'" aria-hidden="true"></i><span>'.$navbar->page.'</span></a>
-									</li>';
+										if(isset($_SESSION['name']))
+										{
+											echo '<li>
+												<a href='.$navbar->goto.'><i class="'.$navbar->class.'" aria-hidden="true"></i><span>'.$_SESSION['name'].'</span></a>
+											</li>';
+										}
+										else{
+											echo '<li>
+													<a href='.$navbar->goto.'><i class="'.$navbar->class.'" aria-hidden="true"></i><span>'.$navbar->page.'</span></a>
+												</li>';
+										}
 									}
-									else{
-										echo '<li>
-										<a href='.$navbar->goto.'><i class="'.$navbar->class.'" aria-hidden="true"></i><span>'.$navbar->page.'</span></a>
-									</li>';
+									elseif($navbar->goto == "register.php")
+									{
+										if(isset($_SESSION['name']))
+										{
+											echo '<li>
+													<a href="logout.php"><i class="'.$navbar->class.'" aria-hidden="true"></i><span>Logout</span></a>
+												</li>';
+										}
+										else{
+											echo '<li>
+													<a href="register.php"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i><span>Register</span></a>
+												</li>';
+										}
+									}
+									elseif($pagename == $navbar->goto)
+									{
+											echo '<li class="active">
+												<a href='.$navbar->goto.'><i class="'.$navbar->class.'" aria-hidden="true"></i><span>'.$navbar->page.'</span></a>
+											</li>';	
+									}
+									else{ 
+											echo '<li>
+											<a href='.$navbar->goto.'><i class="'.$navbar->class.'" aria-hidden="true"></i><span>'.$navbar->page.'</span></a>
+										</li>';
+										
 									}
 								}
 							

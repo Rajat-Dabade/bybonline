@@ -1,8 +1,8 @@
 <?php
 
     $email = $_GET['email'];
-    $password = $_GET['password'];
-    require '../include/db_config.php';
+    $password = md5($_GET['password']);
+    require '../includes/db_config.php';
 
     $db = new Database();
     $conn = $db->getConnection();
@@ -26,7 +26,7 @@
     
     if($cnt==0)
 	{
-		echo $cnt;
+        echo $cnt;
 	}
     else
     {
@@ -34,8 +34,8 @@
         $_SESSION['name'] = $name;
         $_SESSION['email'] = $email;
         $_SESSION['id'] = $id;
-        $_SESSION['mobile'] = $phone_number;
-        $_SESSION['entity'] = $gender;
+        $_SESSION['mobile'] = $mobile;
+        $_SESSION['entity'] = $entity;
 
         echo $cnt;
 	}

@@ -1,7 +1,14 @@
 <?php
 
 	$pagename = "index.php";
-    include('includes/header.php');
+	include('includes/header.php');
+	
+	$db = new Database();
+	$conn = $db->getConnection();
+
+	$query = "SELECT * FROM offers";
+
+	$q = $conn->query($query);
 ?>
 <head>
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
@@ -45,11 +52,16 @@
 				<div class="special-offers-section-grids">
 				 <div class="m_3"><span class="middle-dotted-line"> </span> </div>
 				   <div class="container">
-					  <ul id="flexiselDemo2">
+					<ul id="flexiselDemo2">
+					<?php 
+
+					
+					
+					?>
 						<li>
 							<div class="offer">
 								<div class="offer-image">	
-									<img src="images/p1.jpg" class="img-responsive" alt=""/>
+									<img src="images/offers/p1.jpg" class="img-responsive" alt=""/>
 								</div>
 								<div class="offer-text">
 									<h4>Olister Combo pack lorem</h4>
@@ -63,7 +75,7 @@
 						<li>
 							<div class="offer">
 								<div class="offer-image">	
-									<img src="images/p2.jpg" class="img-responsive" alt=""/>
+									<img src="images/offers/p2.jpg" class="img-responsive" alt=""/>
 								</div>
 								<div class="offer-text">
 									<h4>Chicken Jumbo pack lorem</h4>
@@ -77,7 +89,7 @@
 						<li>
 							<div class="offer">
 								<div class="offer-image">	
-									<img src="images/p1.jpg" class="img-responsive" alt=""/>
+									<img src="images/offers/p1.jpg" class="img-responsive" alt=""/>
 								</div>
 								<div class="offer-text">
 									<h4>Crab Combo pack lorem</h4>
@@ -92,7 +104,7 @@
 						<li>
 							<div class="offer">
 								<div class="offer-image">	
-									<img src="images/p2.jpg" class="img-responsive" alt=""/>
+									<img src="images/offers/p2.jpg" class="img-responsive" alt=""/>
 								</div>
 								<div class="offer-text">
 									<h4>Chicken Jumbo pack lorem</h4>
@@ -104,7 +116,7 @@
 								<div class="clearfix"></div>
 								</div>
 					    </li>
-					 </ul>
+					</ul>
 				 <script type="text/javascript">
 					$(window).load(function() {
 						
