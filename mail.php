@@ -1,5 +1,7 @@
 <?php
-	include("includes/header.php")
+	$pagename = "mail.php";
+	include("includes/header.php");
+	
 ?>
 <!-- mail -->
 	<div class="mail">

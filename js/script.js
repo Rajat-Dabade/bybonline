@@ -24,7 +24,7 @@ function login(){
                 }
             }
             else{
-                window.location.href = 'index.php?flg='+flg;
+                window.location.href = 'index.php';
             }
         }
     };
@@ -115,4 +115,348 @@ function validateEmail(email) {
         return false;
     }
     return true;
+}
+
+
+
+
+function filterCake()
+{
+	var shape_value = '';
+	var weight_value = '';
+	var range = 0;
+	if (document.getElementById('s1').checked) {
+		shape_value = document.getElementById('s1').value;
+	}
+	else if (document.getElementById('s2').checked) {
+		shape_value = document.getElementById('s2').value;
+	} 
+	else if(document.getElementById('s3').checked) {
+		shape_value = document.getElementById('s3').value;
+	}
+	else if(document.getElementById('s4').checked){
+		shape_value = document.getElementById('s4').value;
+	}
+
+
+	range = document.getElementById('range').value;
+
+	if(document.getElementById('w1').checked)
+	{
+		weight_value = document.getElementById('w1').value;
+	}
+	else if(document.getElementById('w2').checked)
+	{
+		weight_value = document.getElementById('w2').value;
+	}
+	else if(document.getElementById('w3').checked)
+	{
+		weight_value = document.getElementById('w3').value;
+	}
+	else if(document.getElementById('w4').checked)
+	{
+		weight_value = document.getElementById('w4').value;
+	}
+
+	document.getElementById('loadingImage').style.display = 'block';
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			document.getElementById('main').style.display = 'none';
+			document.getElementById('demo').style.display = 'block';
+			document.getElementById('loadingImage').style.display = 'none';
+			var flg = JSON.parse(this.responseText);
+				var list = [];
+				if(flg.length == 0)
+				{
+					list.push('<h1 style="text-align : center; padding-top : 40px;">No Cake With This Filter Avaible</h1>')
+				}
+				for(i=0; i< flg.length; i++)
+				{
+					list.push('<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">\
+					<div width="300">\
+						<div class="hovereffect">\
+							<img class="img-responsive" src='+flg[i]["image"]+' alt="" style="padding: 5%;">\
+							<div class="overlay">\
+								<h2>'+flg[i]["name"]+'</h2>\
+								<table class="table">\
+									<tr>\
+										<th>Weight:</th>\
+										<td>'+flg[i]["weight"]+'</td>\
+									</tr>\
+									<tr>\
+										<th>Price:</th>\
+										<td>&#8377; '+flg[i]["price"]+'</td>\
+									</tr>\
+									<tr>\
+										<th>Shape:</th>\
+										<td>'+flg[i]["shape"]+'</td>\
+									</tr>\
+									<tr>\
+										<th>Sugar free:</th>\
+										<td>'+flg[i]["sugarFree"]+'</td>\
+									</tr>\
+									<tr>\
+										<th>Veg:</th>\
+										<td>'+flg[i]["veg"]+'</td>\
+									</tr>\
+									<tr>\
+										<th>Ingredient:</th>\
+										<td>'+flg[i]["ingredients"]+'</td>\
+									</tr>\
+								</table>\
+								<a href="addtocart.php?productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+							</div>\
+						</div>\
+					</div>\
+				</div>');
+				}
+				document.getElementById('demo').innerHTML = list.join("");
+			// var flg = this.responseText;
+			// console.log(flg);	 
+		}	
+
+			
+		};
+
+	xhttp.open("GET", "background/cakefilter_handler.php?shape="+shape_value+"&range="+range+"&weight="+weight_value, true);
+	xhttp.send();
+}
+
+
+
+function filterPastry(){
+	var veg_value = '';
+	var range = 0;
+
+	if (document.getElementById('v1').checked) {
+		veg_value = document.getElementById('v1').value;
+	}
+	else if (document.getElementById('v2').checked) {
+		veg_value = document.getElementById('v2').value;
+	} 
+
+
+	range = document.getElementById('range').value;
+
+	document.getElementById('loadingImage').style.display = 'block';
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			document.getElementById('main').style.display = 'none';
+			document.getElementById('demo').style.display = 'block';
+			document.getElementById('loadingImage').style.display = 'none';
+			var flg = JSON.parse(this.responseText);
+				var list = [];
+				if(flg.length == 0)
+				{
+					list.push('<h1 style="text-align : center; padding-top : 40px;">No Pastries With This Filter Avaible</h1>')
+				}
+				for(i=0; i< flg.length; i++)
+				{
+					list.push('<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">\
+									<div width="300">\
+									    <div class="hovereffect">\
+									        <img class="img-responsive" src='+flg[i]["image"]+' alt="" style="padding: 5%;">\
+								            <div class="overlay">\
+								                <h2>'+flg[i]["name"]+'</h2>\
+												<table class="table">\
+													<tr>\
+														<th>Price:</th>\
+														<td>&#8377; '+flg[i]["price"]+'</td>\
+													</tr>\
+													<tr>\
+														<th>Veg:</th>\
+														<td>'+flg[i]["veg"]+'</td>\
+													</tr>\
+													<tr>\
+														<th>Ingredient:</th>\
+														<td>'+flg[i]["ingredients"]+'</td>\
+													</tr>\
+												</table>\
+												<a href="addtocart.php?productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+								            </div>\
+									    </div>\
+									</div>\
+								</div>');
+				}
+				document.getElementById('demo').innerHTML = list.join("");
+			// var flg = this.responseText;
+			// console.log(flg);	 
+		}	
+
+			
+		};
+
+	xhttp.open("GET", "background/pastryfilter_handler.php?veg="+veg_value+"&range="+range, true);
+	xhttp.send();
+		
+}
+
+
+
+function filterCookie(){
+	var range = 0;
+	var weight_value = '';
+
+	range = document.getElementById('range').value;
+
+	if(document.getElementById('w1').checked)
+	{
+		weight_value = document.getElementById('w1').value;
+	}
+	else if(document.getElementById('w2').checked)
+	{
+		weight_value = document.getElementById('w2').value;
+	}
+	else if(document.getElementById('w3').checked)
+	{
+		weight_value = document.getElementById('w3').value;
+	}
+	else if(document.getElementById('w4').checked)
+	{
+		weight_value = document.getElementById('w4').value;
+	}
+
+	document.getElementById('loadingImage').style.display = 'block';
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			document.getElementById('main').style.display = 'none';
+			document.getElementById('demo').style.display = 'block';
+			document.getElementById('loadingImage').style.display = 'none';
+			var flg = JSON.parse(this.responseText);
+				var list = [];
+				if(flg.length == 0)
+				{
+					list.push('<h1 style="text-align : center; padding-top : 40px;">No Cookies With This Filter Avaible</h1>')
+				}
+				for(i=0; i< flg.length; i++)
+				{
+					list.push('<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">\
+									<div width="300">\
+									    <div class="hovereffect">\
+									        <img class="img-responsive" src='+flg[i]["image"]+' alt="" style="padding: 5%;">\
+								            <div class="overlay">\
+								                <h2>'+flg[i]["name"]+'</h2>\
+												<table class="table">\
+														<tr>\
+															<th>Weight:</th>\
+															<td>'+flg[i]["weight"]+' kg</td>\
+														</tr>\
+														<tr>\
+															<th>Price:</th>\
+															<td>&#8377; '+flg[i]["price"]+'</td>\
+														</tr>\
+														<tr>\
+															<th>Ingredient:</th>\
+															<td>'+flg[i]["ingredients"]+'</td>\
+														</tr>\
+													</table>\
+												<a href="addtocart.php?productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+								            </div>\
+									    </div>\
+									</div>\
+								</div>');
+				}
+				document.getElementById('demo').innerHTML = list.join("");
+		}	
+
+		};
+
+	xhttp.open("GET", "background/cookiefilter_handler.php?weight="+weight_value+"&range="+range, true);
+	xhttp.send();
+
+}
+
+
+
+function filterBread(){
+	var shape_value = '';
+	var weight_value = '';
+	var range = 0;
+	if (document.getElementById('s1').checked) {
+		shape_value = document.getElementById('s1').value;
+	}
+	else if (document.getElementById('s2').checked) {
+		shape_value = document.getElementById('s2').value;
+	} 
+	else if(document.getElementById('s3').checked) {
+		shape_value = document.getElementById('s3').value;
+	}
+	else if(document.getElementById('s4').checked){
+		shape_value = document.getElementById('s4').value;
+	}
+
+
+	range = document.getElementById('range').value;
+
+	if(document.getElementById('w1').checked)
+	{
+		weight_value = document.getElementById('w1').value;
+	}
+	else if(document.getElementById('w2').checked)
+	{
+		weight_value = document.getElementById('w2').value;
+	}
+	else if(document.getElementById('w3').checked)
+	{
+		weight_value = document.getElementById('w3').value;
+	}
+	else if(document.getElementById('w4').checked)
+	{
+		weight_value = document.getElementById('w4').value;
+	}
+
+	document.getElementById('loadingImage').style.display = 'block';
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			document.getElementById('main').style.display = 'none';
+			document.getElementById('demo').style.display = 'block';
+			document.getElementById('loadingImage').style.display = 'none';
+			var flg = JSON.parse(this.responseText);
+				var list = [];
+				if(flg.length == 0)
+				{
+					list.push('<h1 style="text-align : center; padding-top : 40px;">No Cake With This Filter Avaible</h1>')
+				}
+				for(i=0; i< flg.length; i++)
+				{
+					list.push('<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">\
+					<div width="300">\
+						<div class="hovereffect">\
+							<img class="img-responsive" src='+flg[i]["image"]+' alt="" style="padding: 5%;">\
+							<div class="overlay">\
+								<h2>'+flg[i]["name"]+'</h2>\
+								<table class="table">\
+									<tr>\
+										<th>Price:</th>\
+										<td>&#8377; '+flg[i]["price"]+'</td>\
+									</tr>\
+									<tr>\
+										<th>Shape:</th>\
+										<td>'+flg[i]["shape"]+'</td>\
+									</tr>\
+								</table>\
+								<a href="addtocart.php?productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+							</div>\
+						</div>\
+					</div>\
+				</div>');
+				}
+				document.getElementById('demo').innerHTML = list.join("");
+			// var flg = this.responseText;
+			// console.log(flg);	 
+		}	
+
+			
+		};
+
+	xhttp.open("GET", "background/breadfilter_handler.php?shape="+shape_value+"&range="+range+"&weight="+weight_value, true);
+	xhttp.send();
 }
