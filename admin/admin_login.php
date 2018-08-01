@@ -36,7 +36,7 @@ session_start();
                         </form>
                         </div>
                     <div class="panel-footer">
-                        Don't have an Account? <a href="admin_register.php.php">Register Here</a>
+                        Don't have an Account? <a href="admin_register.php">Register Here</a>
                     </div>
                 </div>
             </div>

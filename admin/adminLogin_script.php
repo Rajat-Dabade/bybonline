@@ -29,9 +29,9 @@ if($cnt == 0)
 }
 else {
     session_start();
-    $_SESSION['name'] = $name;
-    $_SESSION['id'] = $id;
-    $_SESSION['entity'] = $entity;
+    $_SESSION['adminname'] = $name;
+    $_SESSION['adminid'] = $id;
+    $_SESSION['adminentity'] = $entity;
 	header("Location:modify_products.php");
 }
 ?>

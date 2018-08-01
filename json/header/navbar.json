@@ -25,8 +25,8 @@
         "goto" : "register.php"
     },
     {
-        "page" : "Mail Us",
+        "page" : "Goto Cart",
         "class" : "glyphicon glyphicon-envelope",
-        "goto" : "mailUs.php"
+        "goto" : "cart.php"
     }
 ]

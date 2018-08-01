@@ -10,6 +10,8 @@
 
 	$q = $conn->query($query);
 ?>
+
+
 <head>
 
 <style type="text/css">
@@ -62,21 +64,41 @@
 				 <!--<div class="m_3"><span class="middle-dotted-line"> </span> </div>-->
 				   <div class="container">
 					  <ul id="flexiselDemo2">
+						<?php 
+
+							if($q->setFetchMode(PDO::FETCH_ASSOC))
+							{
+								while ($r = $q->fetch()){
+									$offerId = $r['offer_id'];
+									$heading = $r['heading'];
+									$image = $r['image'];
+									$description = $r['description'];
+
+						?>
+
 						<li>
 							<div class="offer">
 								<div class="offer-image">	
-									<img src="images/p1.jpg" class="img-responsive" alt=""/>
+									<img src="<?php echo $image;?>" class="img-responsive" alt=""/>
 								</div>
 								<div class="offer-text">
-									<h4>Olister Combo pack lorem</h4>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+									<h4><?php echo $heading ?></h4>
+									<p><?php echo $description; ?></p>
 									<input type="button" value="Grab It">
 									<span></span>
 								</div>
 								<div class="clearfix"></div>
 							</div>
 						</li>
-						<li>
+
+						<?php 
+								}
+							}
+
+						?>
+
+
+						<!-- <li>
 							<div class="offer">
 								<div class="offer-image">	
 									<img src="images/p2.jpg" class="img-responsive" alt=""/>
@@ -119,7 +141,9 @@
 								
 								<div class="clearfix"></div>
 								</div>
-					    </li>
+					    </li> -->
+
+					    
 					 </ul>
 				 <script type="text/javascript">
 					$(window).load(function() {
@@ -286,7 +310,7 @@
 				our labour, our skill and preparation</p>
 		</div>
 		<div class="clearfix"> </div>
-	</div>
+	</div><br>
 <!-- //banner-bottom-grids -->
 <?php 
 	include('includes/footer.php');

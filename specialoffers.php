@@ -2,6 +2,12 @@
 
 	$pagename = "specialoffers.php";
 	include('includes/header.php');
+	$db = new Database();
+	$conn = $db->getConnection();
+
+	$query = "SELECT * FROM offers";
+	
+	$q = $conn->query($query);
 
 ?>
 <head>       
@@ -53,16 +59,32 @@ jQuery(document).ready(function($) {
 		<div class="gallery-grids">
 			<section>
 				<ul id="da-thumbs" class="da-thumbs">
+					<?php 
+
+						if($q->setFetchMode(PDO::FETCH_ASSOC))
+						{
+							while ($r = $q->fetch()){
+								$offerId = $r['offer_id'];
+								$heading = $r['heading'];
+								$image = $r['image'];
+								$description = $r['description'];
+
+					?>
 					<li>
 						<a href="images/55.jpg" class=" mask b-link-stripe b-animate-go swipebox"  title="">
-							<img src="images/55.jpg" alt="" />
+							<img src="<?php echo $image;?>" alt="" />
 							<div>
-								<h5>Bake Your Bread</h5>
-								<span>non suscipit leo fringilla non suscipit leo fringilla molestie</span>
+								<h5><?php echo $heading; ?></h5>
+								<span><?php echo $description; ?></span>
 							</div>
 						</a>
 					</li>
-					<li>
+
+					<?php 
+							}
+						}
+					?>
+					<!-- <li>
 						<a href="images/66.jpg" class=" mask b-link-stripe b-animate-go swipebox"  title="">
 							<img src="images/66.jpg" alt="" />
 							<div>
@@ -134,7 +156,7 @@ jQuery(document).ready(function($) {
 							</div>
 						</a>
 					</li>
-					
+					 -->
 				</ul>
 			</section>
 			<script type="text/javascript" src="js/jquery.hoverdir.js"></script>	

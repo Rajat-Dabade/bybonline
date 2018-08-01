@@ -495,7 +495,7 @@ x
 									<td> <?php echo $shape; ?></td>
 								</tr>
 							</table>
-							<a href="addtocart.php?productId=<?php echo $productId; ?>" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>
+							<a href="addtocart.php?value=bread&productId=<?php echo $productId; ?>" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>
 			            </div>
 				    </div>
 				</div>

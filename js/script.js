@@ -206,7 +206,7 @@ function filterCake()
 										<td>'+flg[i]["ingredients"]+'</td>\
 									</tr>\
 								</table>\
-								<a href="addtocart.php?productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+								<a href="addtocart.php?value=cake&productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
 							</div>\
 						</div>\
 					</div>\
@@ -276,7 +276,7 @@ function filterPastry(){
 														<td>'+flg[i]["ingredients"]+'</td>\
 													</tr>\
 												</table>\
-												<a href="addtocart.php?productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+												<a href="addtocart.php?value=pastry&productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
 								            </div>\
 									    </div>\
 									</div>\
@@ -356,7 +356,7 @@ function filterCookie(){
 															<td>'+flg[i]["ingredients"]+'</td>\
 														</tr>\
 													</table>\
-												<a href="addtocart.php?productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+												<a href="addtocart.php?value=cookie&productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
 								            </div>\
 									    </div>\
 									</div>\
@@ -443,7 +443,7 @@ function filterBread(){
 										<td>'+flg[i]["shape"]+'</td>\
 									</tr>\
 								</table>\
-								<a href="addtocart.php?productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+								<a href="addtocart.php?value=bread&productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
 							</div>\
 						</div>\
 					</div>\
@@ -459,4 +459,10 @@ function filterBread(){
 
 	xhttp.open("GET", "background/breadfilter_handler.php?shape="+shape_value+"&range="+range+"&weight="+weight_value, true);
 	xhttp.send();
+}
+
+
+function grab()
+{
+	console.log(document.getElementById('offerId').value);
 }

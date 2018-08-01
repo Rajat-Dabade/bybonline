@@ -535,7 +535,7 @@ x
 									<td><?php $ingredients; ?></td>
 								</tr>
 							</table>
-							<a href="addtocart.php?productId=<?php echo $productId; ?>" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>
+							<a href="addtocart.php?value=cake&productId=<?php echo $productId; ?>&price=<?php echo $price?>" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>
 			            </div>
 				    </div>
 				</div>

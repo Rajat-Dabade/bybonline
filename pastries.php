@@ -500,7 +500,7 @@ x
 									<td><?php echo $ingredients; ?></td>
 								</tr>
 							</table>
-							<a href="#" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>
+							<a href="addtocart.php?value=pastry&productId=<?php echo $productId;?>" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>
 			            </div>
 				    </div>
 				</div>
