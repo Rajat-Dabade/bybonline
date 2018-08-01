@@ -1,18 +1,23 @@
 <?php
+    
+    session_start();
+
+    if(!isset($_SESSION['adminname']))
+    {
+        $msg = "Login First";
+        header("Location:admin_login.php?msg=$msg");
+    }
+    if($_SESSION['adminentity'] != 200)
+    {
+        $msg = "Only for Admins";
+        session_destroy();
+        header("Location:admin_login.php?msg=$msg");
+    }
+
 	include_once "../includes/db_config.php";
 	$db = new Database();
 	$conn = $db->getConnection();
-	session_start();
-	if(!isset($_SESSION['name']))
-	{
-		$msg = "Login First";
-		header("Location:admin_login.php?msg=$msg");
-	}
-	if($_SESSION['entity'] != 200)
-	{
-		$msg = "Only for Admins";
-		header("Location:admin_login.php?msg=$msg");
-	}
+	
 ?>
 
 
@@ -35,6 +40,7 @@
     </head>
 <body>
     <br>
+        <div class="col-md-10">
         <form method = 'POST'>
             <div class="form-inline">
             <select class="form-control" name='category'>
@@ -50,6 +56,13 @@
             <button class="form-control" type = 'submit' name='delete_submit'>Delete a Product</button>
             </div>
         </form>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-info"><?php echo $_SESSION['adminname']; ?></button>
+        </div>
+        <div class="col-md-1">
+            <a href="logout.php"><button class="btn btn-primary">Logout</button></a>
+        </div>
         <br><br>
     <?php
 if(isset($_POST['add_submit']) && isset($_POST['category'])){
@@ -133,14 +146,16 @@ if(isset($_POST['view_submit']) && isset($_POST['category'])){
                 if($res_bread->setFetchMode(PDO::FETCH_ASSOC))
     			{                   
                     echo '<div class="col-md-6"><table class="table table-striped">
-                            <tr>                                                
+                            <tr>
+                                <th>productId</th>                                                
                                 <th>Name</th> 
                                 <th>Shape</th>
                                 <th>Price</th>
                             </tr>';
     				while ($r = $res_bread->fetch()){				                            
                                                 echo '
-                                                    <tr>                                               
+                                                    <tr>
+                                                    <td>'.$r['product_Id'].'</td>                                               
                                                    <td>'.$r['name'].'</td> 
                                                    <td>'.$r['shape'].'</td>
                                                    <td>'.$r['price'].'</td><br/>
@@ -155,7 +170,8 @@ if(isset($_POST['view_submit']) && isset($_POST['category'])){
                 if($res->setFetchMode(PDO::FETCH_ASSOC))
 			{                    
                 echo '<div class="col-md-6"><table class="table table-striped">
-                                            <tr>                                                
+                                            <tr> 
+                                                <th>ProductId</th>                                               
                                                 <th>Name</th> 
                                                 <th>Shape</th>
                                                 <th>Price</th>
@@ -166,7 +182,8 @@ if(isset($_POST['view_submit']) && isset($_POST['category'])){
                                             </tr>';
 				while ($r = $res->fetch()){				                                
                                             echo '
-                                                <tr>                                               
+                                                <tr>
+                                                <td>'.$r['product_Id'].'</td>                                                
                                                <td>'.$r['name'].'</td> 
                                                <td>'.$r['shape'].'</td>
                                                <td>'.$r['price'].'</td>
@@ -186,7 +203,8 @@ if(isset($_POST['view_submit']) && isset($_POST['category'])){
                 if($res->setFetchMode(PDO::FETCH_ASSOC))
 			{                                     
                 echo '<div class="col-md-6"><table class="table table-striped">
-                                            <tr>                                                
+                                            <tr>
+                                                <th>ProductId</th>                             
                                                 <th>Name</th>                                                 
                                                 <th>Price</th>
                                                 <th>Weight</th>                                                
@@ -194,7 +212,8 @@ if(isset($_POST['view_submit']) && isset($_POST['category'])){
                                             </tr>';                 
 				while ($r = $res->fetch()){				
                                             echo '
-                                                <tr>                                               
+                                                <tr>
+                                                <td>'.$r['product_Id'].'</td>
                                                <td>'.$r['name'].'</td>                                                
                                                <td>'.$r['price'].'</td>
                                                <td>'.$r['weight'].'</td>                                               
@@ -211,7 +230,8 @@ if(isset($_POST['view_submit']) && isset($_POST['category'])){
                 if($res->setFetchMode(PDO::FETCH_ASSOC))
 			{                   
                 echo '<div class="col-md-6"><table class="table table-striped">
-                                            <tr>                                                
+                                            <tr>
+                                                <th>ProductId</th>                            
                                                 <th>Name</th>                                                 
                                                 <th>Price</th>                                                
                                                 <th>Veg</th>
@@ -219,8 +239,9 @@ if(isset($_POST['view_submit']) && isset($_POST['category'])){
                                             </tr>';
 				while ($r = $res->fetch()){				
                                             echo '
-                                                <tr>                                               
-                                               <td>'.$r['name'].'</td>                                                
+                                                <tr>
+                                                <td>'.$r['product_Id'].'</td>                                               
+                                               <td>'.$r['name'].'</td>
                                                <td>'.$r['price'].'</td>                                               
                                                <td>'.$r['veg'].'</td>
                                                <td>'.$r['ingredients'].'</td><br>
@@ -241,7 +262,7 @@ if(isset($_POST['delete_submit']) && isset($_POST['category'])){
                 $res = $conn->query($query);
                 if($res->setFetchMode(PDO::FETCH_ASSOC))
 			{
-                    echo "<div class='col-md-4'><label for=product_Id>Please Select a Product: </label>";
+                    echo "<br><div class='col-md-4'><label for=product_Id>Please Select a Product: </label>";
                     echo "<form method='POST' class='form-group' action = 'delete_product.php'>";
                     echo "<select class='form-control' id=product_Id name='product_Id'>";
                     while ($r = $res->fetch()){
@@ -258,7 +279,7 @@ if(isset($_POST['delete_submit']) && isset($_POST['category'])){
                 $res = $conn->query($query);
                 if($res->setFetchMode(PDO::FETCH_ASSOC))
 			{
-                    echo "<div class='col-md-4'><label for=product_Id>Please Select a Product: </label>";
+                    echo "<br><div class='col-md-4'><label for=product_Id>Please Select a Product: </label>";
                     echo "<form method='POST' class='form-group' action = 'delete_product.php'>";
                     echo "<select id=product_Id name='product_Id' class='form-control'>";
                     while ($r = $res->fetch()){
@@ -274,7 +295,7 @@ if(isset($_POST['delete_submit']) && isset($_POST['category'])){
                 $res = $conn->query($query);
                 if($res->setFetchMode(PDO::FETCH_ASSOC))
 			{
-                    echo "<div class='col-md-4'><label for=product_Id>Please Select a Product: </label>";
+                    echo "<br><div class='col-md-4'><label for=product_Id>Please Select a Product: </label>";
                     echo "<form method='POST' class='form-group' action = 'delete_product.php'>";
                     echo "<select id=product_Id class='form-control' name='product_Id'>";
                     while ($r = $res->fetch()){
@@ -290,7 +311,7 @@ if(isset($_POST['delete_submit']) && isset($_POST['category'])){
                 $res = $conn->query($query);
                 if($res->setFetchMode(PDO::FETCH_ASSOC))
 			{
-                    echo "<div class='col-md-4'><label for=product_Id>Please Select a Product: </label>";
+                    echo "<br><div class='col-md-4'><label for=product_Id>Please Select a Product: </label>";
                     echo "<form method='POST' class='form-group' action = 'delete_product.php'>";
                     echo "<select id=product_Id class='form-control' name='product_Id'>";
                     while ($r = $res->fetch()){
@@ -303,10 +324,51 @@ if(isset($_POST['delete_submit']) && isset($_POST['category'])){
                         break;
         }
 }
+
+if(isset($_POST['update_submit']) && isset($_POST['category'])){
+
+        $category = $_POST['category'];
+
+        switch($category){
+
+            case 'cake':
+                echo "<br><div class='col-md-4'>"
+                    . "<form class='form-group' action='updateProduct.php' method='POST'>"
+                    . "<input type='text' name='productId' placeholder='Enter productID to modify' class='form-control'>"
+                    . "<br><input type='submit' name='cake_modify' class='btn btn-success' value='modifyCake'>"
+                    . "</form>";
+                    break;
+
+            case 'bread':
+                echo "<br><div class='col-md-4'>"
+                    . "<form class='form-group' action='updateProduct.php' method='POST'>"
+                    . "<input type='text' name='productId' placeholder='Enter productID to modify' class='form-control'>"
+                    . "<br><input type='submit' name='bread_modify' class='btn btn-success' value='modifyBread'>"
+                    . "</form>";
+                    break;                
+
+            case 'cookies':
+                echo "<br><div class='col-md-4'>"
+                    . "<form class='form-group' action='updateProduct.php' method='POST'>"
+                    . "<input type='text' name='productId' placeholder='Enter productID to modify' class='form-control'>"
+                    . "<br><input type='submit' name='cookie_modify' class='btn btn-success' value='modifyCookie'>"
+                    . "</form>";
+                    break;
+
+            case 'pastries':
+                echo "<br><div class='col-md-4'>"
+                    . "<form class='form-group' action='updateProduct.php' method='POST'>"
+                    . "<input type='text' name='productId' placeholder='Enter productID to modify' class='form-control'>"
+                    . "<br><input type='submit' name='pastry_modify' class='btn btn-success' value='modifyPastry'>"
+                    . "</form>";
+                    break;
+        }
+
+    }
 ?>
     <span style="color:red;">
  <?php if(isset($_GET['delete_msg'])){
- echo $_GET['delete_msg'];}
+    echo $_GET['delete_msg'];}
  ?></span>
 </body>
 </html>

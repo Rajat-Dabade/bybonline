@@ -1,4 +1,6 @@
 <?php
+
+
 include_once "../includes/db_config.php";
 
 $db = new Database();

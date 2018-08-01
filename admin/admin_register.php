@@ -1,7 +1,15 @@
-<?php include_once '../includes/db_config.php';
+<?php 
+
+include_once '../includes/db_config.php';
 		$db = new Database();
 		$conn = $db->getConnection();
                 session_start();
+
+                if(isset($_SESSION['adminname']))
+                {
+                    header("Location:modify_products.php");
+                }
+
 ?>
 <!DOCTYPE html>
 <html>

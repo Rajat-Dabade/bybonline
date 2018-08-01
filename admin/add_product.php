@@ -1,4 +1,21 @@
 <?php
+
+    session_start();
+
+    if(!isset($_SESSION['adminname']))
+    {
+        $msg = "Login First";
+        session_destroy();
+        header("Location:admin_login.php?msg=$msg");
+    }
+    if($_SESSION['adminentity'] != 200)
+    {
+        $msg = "Only for Admins";
+        session_destroy();
+        header("Location:admin_login.php?msg=$msg");
+    }
+
+
 include_once "../includes/db_config.php";
 $db = new Database();
 $conn = $db->getConnection();
