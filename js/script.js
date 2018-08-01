@@ -206,7 +206,7 @@ function filterCake()
 										<td>'+flg[i]["ingredients"]+'</td>\
 									</tr>\
 								</table>\
-								<a href="addtocart.php?value=cake&productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+								<a href="addtocart.php?value=cake&productId='+flg[i]["productId"]+'&price='+flg[i]["price"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
 							</div>\
 						</div>\
 					</div>\
@@ -276,7 +276,7 @@ function filterPastry(){
 														<td>'+flg[i]["ingredients"]+'</td>\
 													</tr>\
 												</table>\
-												<a href="addtocart.php?value=pastry&productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+												<a href="addtocart.php?value=pastry&productId='+flg[i]["productId"]+'&price='+flg[i]["price"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
 								            </div>\
 									    </div>\
 									</div>\
@@ -356,7 +356,7 @@ function filterCookie(){
 															<td>'+flg[i]["ingredients"]+'</td>\
 														</tr>\
 													</table>\
-												<a href="addtocart.php?value=cookie&productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+												<a href="addtocart.php?value=cookie&productId='+flg[i]["productId"]+'&price='+flg[i]["price"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
 								            </div>\
 									    </div>\
 									</div>\
@@ -443,7 +443,7 @@ function filterBread(){
 										<td>'+flg[i]["shape"]+'</td>\
 									</tr>\
 								</table>\
-								<a href="addtocart.php?value=bread&productId='+flg[i]["productId"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
+								<a href="addtocart.php?value=bread&productId='+flg[i]["productId"]+'&price='+flg[i]["price"]+'" style="color: #444;font-weight: bold;" class="addtocart">Add to Cart</a>\
 							</div>\
 						</div>\
 					</div>\

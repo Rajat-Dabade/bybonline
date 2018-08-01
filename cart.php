@@ -134,6 +134,7 @@
 						{
 							while($r2 = $q2->fetch())
 							{
+								$productId = $r2['product_Id'];
 								$name = $r2['name'];
 								$image = $r2['image'];
 								$weight = $r2['weight'];
@@ -175,7 +176,7 @@
 								  						<label>Total Price: &#8377;</label><?php echo $price;?>
 								  					</div>
 								  					<div class="checkbtn">
-								  						<a href="#">Proceed to Checkout</a>
+								  						<a href="checkout.php?productId=<?php echo $productId; ?>&value=cake&purchaseId=<?php echo $purchaseId;?>">Proceed to Checkout</a>
 								  					</div>
 								  				<hr>
 										  	</div>
@@ -200,6 +201,7 @@
 						{
 							while($r2 = $q2->fetch())
 							{
+								$productId = $r2['product_Id'];
 								$name = $r2['name'];
 								$image = $r2['image'];
 								$price = $r2['price'];
@@ -236,7 +238,7 @@
 								  						<label>Total Price: &#8377;</label><?php echo $price;?>
 								  					</div>
 								  					<div class="checkbtn">
-								  						<a href="#">Proceed to Checkout</a>
+								  						<a href="checkout.php?productId=<?php echo $productId; ?>&value=pastries&purchaseId=<?php echo $purchaseId;?>">Proceed to Checkout</a>
 								  					</div>
 								  				<hr>
 										  	</div>
@@ -261,6 +263,7 @@
 						{
 							while($r2 = $q2->fetch())
 							{
+								$productId = $r2['product_Id'];
 								$name = $r2['name'];
 								$image = $r2['image'];
 								$price = $r2['price'];
@@ -293,7 +296,7 @@
 								  						<label>Total Price: &#8377;</label><?php echo $price;?>
 								  					</div>
 								  					<div class="checkbtn">
-								  						<a href="#">Proceed to Checkout</a>
+								  						<a href="checkout.php?productId=<?php echo $productId; ?>&value=bread&purchaseId=<?php echo $purchaseId;?>">Proceed to Checkout</a>
 								  					</div>
 								  				<hr>
 										  	</div>
@@ -318,6 +321,7 @@
 						{
 							while($r2 = $q2->fetch())
 							{
+								$productId = $r2['product_Id'];
 								$name = $r2['name'];
 								$image = $r2['image'];
 								$weight = $r2['weight'];
@@ -352,7 +356,7 @@
 								  						<label>Total Price: &#8377;</label><?php echo $price;?>
 								  					</div>
 								  					<div class="checkbtn">
-								  						<a href="#">Proceed to Checkout</a>
+								  						<a href="checkout.php?productId=<?php echo $productId; ?>&value=cookies&purchaseId=<?php echo $purchaseId;?>">Proceed to Checkout</a>
 								  					</div>
 								  				<hr>
 										  	</div>
@@ -368,7 +372,7 @@
 						break;
 						
 						default:
-							# code...
+							echo "<h2 text-align='center'>No product avaiable</h2>";
 							break;
 					}
 				}

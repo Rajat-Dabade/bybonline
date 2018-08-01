@@ -1,14 +1,38 @@
 <?php
 
-$pagename = "checkout.php";
-include('includes/header.php');
+    if(!isset($_GET['productId']) && !isset($_GET['value']) && !isset($_GET['purchaseId']))
+    {
+        echo "<script type='text/javascript'>
+     window.location.href='cart.php'</script>";
+     die();
+    }
+
+    
+
+    $pagename = "checkout.php";
+    include('includes/header.php');
+    include_once 'includes/db_config.php';
+
+    if(!isset($_SESSION['name']))
+    {
+        echo "<script type='text/javascript'>
+     window.location.href='login.php'</script>";
+
+     die();
+    }
+
+    $db = new Database();
+    $conn = $db->getConnection();
+
+    $productId = $_GET['productId'];
+    $value = $_GET['value'];
+    $purchaseId = $_GET['purchaseId'];
 
 ?>
 <head>
 
 <link rel="stylesheet" type="text/css" href="css/custom.css">
 <style type="text/css">
-
 .SuccessField {
     border-color: #458845 !important;
     -webkit-box-shadow: 0 0 7px #9acc9a !important;
@@ -16,11 +40,9 @@ include('includes/header.php');
     box-shadow: 0 0 7px #9acc9a !important;
     background: #f9f9f9 url(../images/valid.png) no-repeat 98% center !important
 }
-
 .btn-xs{
     line-height: 28px;
 }
-
 /*login form*/
 .login-container{
     margin-top:30px ;
@@ -31,8 +53,7 @@ include('includes/header.php');
   margin-bottom: 10px;
   position: relative;
 }
-
-.login-container input[type=text], input[type=password] {
+.login-container input[type=text], input[type=password],textarea {
   height: 44px;
   font-size: 16px;
   width: 100%;
@@ -54,7 +75,6 @@ include('includes/header.php');
   -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
-
 .login-container-submit {
   /* border: 1px solid #3079ed; */
   border: 0px;
@@ -66,7 +86,6 @@ include('includes/header.php');
   font-size: 14px;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
-
 .login-container-submit:hover {
   /* border: 1px solid #2f5bb7; */
   border: 0px;
@@ -74,16 +93,12 @@ include('includes/header.php');
   background-color: #357ae8;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
-
 .login-help{
   font-size: 12px;
 }
-
 .asterix{
     background:#f9f9f9 url(../images/red_asterisk.png) no-repeat 98% center !important;
 }
-
-
 /*
  * BOOTSTRAP
  */
@@ -102,11 +117,9 @@ include('includes/header.php');
 .input-sm, .form-horizontal .form-group-sm .form-control{
     border-radius: 1px;
 }
-
 .panel-info {
     border-color: #999;
 }
-
 .panel-heading {
     border-top-left-radius: 1px;
     border-top-right-radius: 1px;
@@ -121,26 +134,21 @@ include('includes/header.php');
 .panel-info > .panel-heading {
     background-image: linear-gradient(to bottom, #555 0px, #888 100%);
 }
-
 hr {
     border-color: #999 -moz-use-text-color -moz-use-text-color;
 }
-
 .panel-footer {
     border-bottom-left-radius: 1px;
     border-bottom-right-radius: 1px;
     border-top: 1px solid #999;
 }
-
 .btn-link {
     color: #888;
 }
-
 hr{
     margin-bottom: 10px;
     margin-top: 10px;
 }
-
 /** MEDIA QUERIES **/
 @media only screen and (max-width: 989px){
     .span1{
@@ -148,13 +156,11 @@ hr{
         clear:both;
     }
 }
-
 @media only screen and (max-width: 764px){
     .inverse-1{
         float:right;
     }
 }
-
 @media only screen and (max-width: 586px){
     .cart-titles{
         display:none;
@@ -163,11 +169,9 @@ hr{
         margin-bottom: 1px;
     }
 }
-
 .form-control {
     border-radius: 1px;
 }
-
 @media only screen and (max-width: 486px){
     .col-xss-12{
         width:100%;
@@ -195,7 +199,9 @@ hr{
             <hr>  
             <br> 
             <div class="row cart-body">
-                <form class="form-horizontal" method="post" action="">
+                <form class="form-horizontal" method="post" action="checkoutdown.php">
+
+
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-push-6 col-sm-push-6">
                     <!--REVIEW ORDER-->
                     <div class="panel panel-info">
@@ -203,65 +209,172 @@ hr{
                             Review Order <div class="pull-right"><small><a class="afix-1" href="#" style="color:#fff;">Edit Cart</a></small></div>
                         </div>
                         <div class="panel-body">
-                            <div class="form-group" style="padding: 1em;margin: 0.35em;">
-                                <div class="form-group">
-                                    <div class="col-sm-3 col-xs-3">
-                                        <img class="img-responsive" src="images/cake/cake2.jpg" />
-                                    </div>
-                                    <div class="col-sm-6 col-xs-6">
-                                        <div class="col-xs-12">Product name</div>
-                                        <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
-                                    </div>
-                                    <div class="col-sm-3 col-xs-3 text-right">
-                                        <h4><span>$</span>25.00</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="padding: 1em;margin: 0.35em;">
-                                <div class="form-group">
-                                    <div class="col-sm-3 col-xs-3">
-                                        <img class="img-responsive" src="images/cake/cake5.jpg" />
-                                    </div>
-                                    <div class="col-sm-6 col-xs-6">
-                                        <div class="col-xs-12">Product name</div>
-                                        <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
-                                    </div>
-                                    <div class="col-sm-3 col-xs-3 text-right">
-                                        <h4><span>$</span>25.00</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="padding: 1em;margin: 0.35em;">
-                                <div class="form-group">
-                                    <div class="col-sm-3 col-xs-3">
-                                        <img class="img-responsive" src="images/cake/cake6.jpg" />
-                                    </div>
-                                    <div class="col-sm-6 col-xs-6">
-                                        <div class="col-xs-12">Product name</div>
-                                        <div class="col-xs-12"><small>Quantity:<span>2</span></small></div>
-                                    </div>
-                                    <div class="col-sm-3 col-xs-3 text-right">
-                                        <h4><span>$</span>50.00</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="padding: 1em;margin: 0.35em;">
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <strong>Subtotal</strong>
-                                        <div class="pull-right"><span>$</span><span>200.00</span></div>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <small>Shipping</small>
-                                        <div class="pull-right"><span>-</span></div>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            <?php 
+
+                                switch ($value) {
+                                    case 'cake':
+                                        
+                                        $query = "SELECT * from cake where product_Id = '$productId'";
+
+                                        $q = $conn->query($query);
+
+                                        if($q->setFetchMode(PDO::FETCH_ASSOC))
+                                        {
+                                            while ($r = $q->fetch()){
+
+                                                $name = $r['name'];
+                                                $image = $r['image'];
+                                                $price = $r['price'];
+
+                                                ?>
+
+                                                <div class="form-group" style="padding: 1em;margin: 0.35em;">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3 col-xs-3">
+                                                            <img class="img-responsive" src="<?php echo $image; ?>" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-xs-6">
+                                                            <div class="col-xs-12"><?php echo $name; ?></div>
+                                                            <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
+                                                        </div>
+                                                        <div class="col-sm-3 col-xs-3 text-right">
+                                                            <h4><span>$</span><?php echo $price; ?></h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <?php
+                                            }
+                                        }    
+
+                                        break;
+                                    
+                                    case 'bread':
+                                        
+                                        $query = "SELECT * from bread where product_Id = '$productId'";
+
+                                        $q = $conn->query($query);
+
+                                        if($q->setFetchMode(PDO::FETCH_ASSOC))
+                                        {
+                                            while ($r = $q->fetch()){
+
+                                                $name = $r['name'];
+                                                $image = $r['image'];
+                                                $price = $r['price'];
+
+                                                ?>
+
+                                                <div class="form-group" style="padding: 1em;margin: 0.35em;">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3 col-xs-3">
+                                                            <img class="img-responsive" src="<?php echo $image; ?>" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-xs-6">
+                                                            <div class="col-xs-12"><?php echo $name; ?></div>
+                                                            <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
+                                                        </div>
+                                                        <div class="col-sm-3 col-xs-3 text-right">
+                                                            <h4><span>$</span><?php echo $price; ?></h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <?php
+                                            }
+                                        }    
+
+                                        break;
+
+                                        case 'cookies':
+                                        
+                                        $query = "SELECT * from cookies where product_Id = '$productId'";
+
+                                        $q = $conn->query($query);
+
+                                        if($q->setFetchMode(PDO::FETCH_ASSOC))
+                                        {
+                                            while ($r = $q->fetch()){
+
+                                                $name = $r['name'];
+                                                $image = $r['image'];
+                                                $price = $r['price'];
+
+                                                ?>
+
+                                                <div class="form-group" style="padding: 1em;margin: 0.35em;">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3 col-xs-3">
+                                                            <img class="img-responsive" src="<?php echo $image; ?>" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-xs-6">
+                                                            <div class="col-xs-12"><?php echo $name; ?></div>
+                                                            <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
+                                                        </div>
+                                                        <div class="col-sm-3 col-xs-3 text-right">
+                                                            <h4><span>$</span><?php echo $price; ?></h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <?php
+                                            }
+                                        }    
+
+                                        break;
+
+                                        case 'pastries':
+                                        
+                                        $query = "SELECT * from pastries where product_Id = '$productId'";
+
+                                        $q = $conn->query($query);
+
+                                        if($q->setFetchMode(PDO::FETCH_ASSOC))
+                                        {
+                                            while ($r = $q->fetch()){
+
+                                                $name = $r['name'];
+                                                $image = $r['image'];
+                                                $price = $r['price'];
+
+                                                ?>
+
+                                                <div class="form-group" style="padding: 1em;margin: 0.35em;">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3 col-xs-3">
+                                                            <img class="img-responsive" src="<?php echo $image; ?>" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-xs-6">
+                                                            <div class="col-xs-12"><?php echo $name; ?></div>
+                                                            <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
+                                                        </div>
+                                                        <div class="col-sm-3 col-xs-3 text-right">
+                                                            <h4><span>$</span><?php echo $price; ?></h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <?php
+                                            }
+                                        }    
+
+                                        break;
+
+
+                                }
+
+
+                            ?>
+
+                            
+                           
+
                             <div class="form-group" style="padding: 1em;margin: 0.35em;"><hr />
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <strong>Order Total</strong>
-                                        <div class="pull-right"><span>$</span><span>150.00</span></div>
+                                        <div class="pull-right"><span>$</span><span><?php echo $price; ?></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -277,6 +390,9 @@ hr{
                     <!--REVIEW ORDER END-->
                 </div>
                 <br>
+
+                
+
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
                     <!--SHIPPING METHOD-->
                     <div class="panel panel-info">
@@ -288,53 +404,26 @@ hr{
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Country:</strong></div>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" name="country" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-6 col-xs-12">
-                                    <strong>First Name:</strong>
-                                    <input type="text" name="first_name" class="form-control" value="" />
-                                </div>
-                                <div class="span1"></div>
-                                <div class="col-md-6 col-xs-12">
-                                    <strong>Last Name:</strong>
-                                    <input type="text" name="last_name" class="form-control" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <div class="col-md-12"><strong>Address:</strong></div>
                                 <div class="col-md-12">
-                                    <input type="text" name="address" class="form-control" value="" />
+                                    <input type="text" name="address" class="form-control" value="" required />
+                                    <input type="hidden" name="purchaseId" value="<?php echo $purchaseId; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>City:</strong></div>
+                                <div class="col-md-12"><strong>Pin Code:</strong></div>
                                 <div class="col-md-12">
-                                    <input type="text" name="city" class="form-control" value="" />
+                                    <input type="text" name="pin_code" class="form-control" value="" required />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>State:</strong></div>
-                                <div class="col-md-12">
-                                    <input type="text" name="state" class="form-control" value="" />
-                                </div>
+                                <div class="col-md-12"><strong>Mobile Number:</strong></div>
+                                <div class="col-md-12"><input type="text" name="mobile_number" class="form-control" value="" required /></div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12"><strong>Zip / Postal Code:</strong></div>
-                                <div class="col-md-12">
-                                    <input type="text" name="zip_code" class="form-control" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12"><strong>Phone Number:</strong></div>
-                                <div class="col-md-12"><input type="text" name="phone_number" class="form-control" value="" /></div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12"><strong>Email Address:</strong></div>
-                                <div class="col-md-12"><input type="text" name="email_address" class="form-control" value="" /></div>
+                                <div class="col-md-12"><strong>Cake Message:</strong></div>
+                                <div class="col-md-12"><input type="text"  name="cake_message" class="form-control" value="" /></div>
+                                
                             </div>
                         </div>
 
